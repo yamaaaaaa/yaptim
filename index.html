@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<title>yaptim</title>
+	<style type="text/css">
+	body{
+		background: #fffff0;
+	}
+	button {
+		display: block;
+		width: 200px;
+		margin: 10px auto;
+		background: #17a2b8;
+		text-align: center;
+		padding: 1em;
+		font-size: 16px;
+		color: #fff;
+		font-weight: bold;
+	}
+	.img{
+		text-align: center;
+		margin-bottom: 20px;
+	}
+	.wrap{
+		width: 100%;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.stop{
+		background: #dc3545;
+	}
+	p{
+		text-align: center;
+	}
+	#qrcode{
+		margin-top: 20px;
+	}
+	#holder{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 250px;
+		height: 250px;
+		background: #f0f0f0;
+		border: solid 3px #f90;
+	}
+	#message{
+		background: #f0fff0;
+		color: #070;
+		display: none;
+	}
+	#messageStart{
+		background: #fff0f0;
+		color: #900;
+		display: none;
+	}
+	#cnt{
+		display: block;
+		text-align: center;
+	}
+	</style>
+	<script type="text/javascript" src="qrcode.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+	<div>
+		<p class="img">
+			<img src="015-images.png">
+		</p>
+		<p>Please select Image folder</p>
+		<p id="messageStart">
+			処理を開始しました。
+			<span id="cnt">0</span>
+		</p>
+		<p id="message">
+			処理が終了しました。
+		</p>
+		<button id="select">SELECT</button>
+		<button class="stop" id="stop">STOP</button>
+	</div>
+</div>
+
+<script>
+	
+'use strict';
+const remote = require('electron').remote;
+const Dialog = remote.dialog;
+const {ipcRenderer} = require('electron');
+
+document.getElementById('select').onclick = () => {
+    Dialog.showOpenDialog(null, {
+        properties: ['openDirectory'],
+        title: 'フォルダ(単独選択)',
+        defaultPath: '.'
+    }, (directories) => {
+		document.getElementById('select').style.display='none';
+		document.getElementById('messageStart').style.display='block';
+		ipcRenderer.send('select',directories[0]);
+    });
+};
+
+
+document.getElementById('stop').onclick = () => {
+	ipcRenderer.send('stop',true);
+};
+
+ipcRenderer.on('count', (event, arg) => {
+	document.getElementById('cnt').innerHTML = arg;
+});
+
+
+ipcRenderer.on('end-convert', (event, arg) => {
+	document.getElementById('select').style.display='block';
+	document.getElementById('messageStart').style.display='none';
+	document.getElementById('message').style.display='block';
+	
+});
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+{
+  "name": "yaptim",
+  "version": "1.0.0",
+  "description": "html markup image optimize",
+  "main": "main.js",
+  "scripts": {
+    "test": "./node_modules/.bin/electron .",
+    "build": "electron-packager . yaptim --platform=darwin --arch=x64 --overwrite --icon=icons/mac/app.icns"
+  },
+  "author": "Yamaaaaa",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^4.1.0"
+  },
+  "dependencies": {
+    "electron-packager": "^13.1.1",
+    "express": "^4.16.4",
+    "imagemagick": "^0.1.3",
+    "ipc": "0.0.1"
+  }
+}

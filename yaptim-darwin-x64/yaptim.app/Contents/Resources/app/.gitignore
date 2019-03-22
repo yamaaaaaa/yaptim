@@ -1,0 +1,36 @@
+#---------------- OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+#---------------- npm specific files
+node_modules/
+
+#---------------- Tool specific files
+.idea/
+
+#---------------- CakePHP specific files
+/config/app.php
+/config/.env
+/tmp/*
+/logs/*
+/tmp/*
+/vendor/*
+
+#---------------- Wordpress specific files
+**/wp-config.php
+**/wp-content/uploads
+**/wp-content/themes/twenty*
+**/wp-content/backup-db
+**/wp-content/backups
+**/wp-content/cache
+**/wp-content/upgrade
+**/wp-content/uploads
+**/wp-content/wp-cache-config.php
+**/wp-content/plugins/hello.php
+
